@@ -21,14 +21,14 @@ sur la touche à ta place, 100 % en local.
 
 ---
 
-## ✨ En bref
+## En bref
 
-- 🗣️ **Un mot = une touche.** Tu parles, le keybind se déclenche comme une vraie frappe.
-- 🔌 **100 % hors ligne.** Reconnaissance vocale **française** embarquée (Vosk) : **rien** ne sort de ton PC, ça marche même sans internet.
-- ⚔️ **Pensé pour Wynncraft.** Sorts, monture, menus… et compatible avec **n'importe quel** keybind (vanilla ou moddé, Wynntils inclus).
-- 🖥️ **Menu en jeu** (touche **V**) : choix du micro, mots, réglages — rien à éditer à la main.
-- 🎤 **Discret et sûr.** Mode *push-to-talk* (micro actif seulement quand tu tiens une touche) + indicateur à l'écran.
-- 🎛️ **Rapide ET fiable.** Détection de fin de mot + filtre anti-bruit pour déclencher vite, sans fausses détections.
+- **Un mot = une touche.** Tu parles, le keybind se déclenche comme une vraie frappe.
+- **100 % hors ligne.** Reconnaissance vocale **française** embarquée (Vosk) : **rien** ne sort de ton PC, ça marche même sans internet.
+- **Pensé pour Wynncraft.** Sorts, monture, menus… et compatible avec **n'importe quel** keybind (vanilla ou moddé, Wynntils inclus).
+- **Menu en jeu** (touche **V**) : choix du micro, mots, réglages — rien à éditer à la main.
+- **Discret et sûr.** Mode *push-to-talk* (micro actif seulement quand tu tiens une touche) + indicateur à l'écran.
+- **Rapide ET fiable.** Détection de fin de mot + filtre anti-bruit pour déclencher vite, sans fausses détections.
 
 ## 🧐 C'est quoi ?
 
@@ -40,7 +40,7 @@ Toute la reconnaissance se fait **localement** grâce à [Vosk](https://alphacep
 et un petit modèle français (~40 Mo). Aucun serveur, aucun cloud, aucun enregistrement :
 l'audio est traité à la volée puis jeté. Rien n'est installé côté serveur Minecraft.
 
-## 🎮 Utilisation
+## Utilisation
 
 1. En jeu, appuie sur **V** pour ouvrir le menu.
 2. Choisis ton **micro** et vérifie que l'écoute est sur **ON**.
@@ -55,7 +55,7 @@ Un petit **🎤 en bas à gauche** indique quand le micro écoute (vert) ou non 
 
 <!-- Astuce : ajoute une capture d'écran du menu ici, ex. ![Menu](docs/menu.png) -->
 
-## 📦 Installation
+## Installation
 
 > Pré-requis : **Minecraft 1.21.11** avec **Fabric Loader** + **Fabric API**
 > (et **Wynntils** si tu veux les sorts). Côté client uniquement.
@@ -101,7 +101,7 @@ Le nom du keybind est celui écrit dans `options.txt` après `key_`
 Une idée, un bug, un mot mal reconnu ? **Ouvre une
 [issue](https://github.com/tombury59/VoiceKeys/issues)** — toute remarque est la bienvenue.
 
-## 🛠️ Compiler soi-même
+## Compiler soi-même
 
 Besoin de **Java 21**.
 
@@ -114,7 +114,7 @@ cd VoiceKeys
 Le jar est généré dans `build/libs/`. Pour tester en jeu : `./gradlew runClient`
 (place d'abord le modèle dans `run/config/voicekeys/model/`).
 
-## 📚 Pour aller plus loin
+## Pour aller plus loin
 
 - [Vosk](https://alphacephei.com/vosk/) — le moteur de reconnaissance vocale hors ligne
 - [Fabric](https://fabricmc.net/) — le mod loader
