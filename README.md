@@ -1,128 +1,125 @@
-# VoiceKeys — Mod vocal Fabric (mot → keybind)
+<div align="center">
 
-Mod client Fabric qui écoute le micro et déclenche un keybind quand un mot configuré
-est reconnu, comme un appui de touche. Exemple : dire « un » déclenche le keybind
-Wynntils *Cast 1st Spell*. Reconnaissance 100 % hors ligne, en français, via Vosk.
+# 🎙️ VoiceKeys
 
-**Règle de base :** un mot = un keybind = un appui. Pas de séquences ni de macros.
-Côté client uniquement, rien à installer sur le serveur.
+**Lance tes sorts à la voix sur Wynncraft — sans quitter ta souris des yeux.**
 
-## Environnement
+Dis « un » → ton premier sort part. Un mod Fabric qui écoute ton micro et appuie
+sur la touche à ta place, 100 % en local.
 
-| Élément | Choix |
+![Minecraft](https://img.shields.io/badge/Minecraft-1.21.11-brightgreen)
+![Loader](https://img.shields.io/badge/Loader-Fabric-blue)
+![Java](https://img.shields.io/badge/Java-21-orange)
+![License](https://img.shields.io/github/license/tombury59/VoiceKeys)
+![Release](https://img.shields.io/github/v/release/tombury59/VoiceKeys?include_prereleases)
+
+[Télécharger](https://github.com/tombury59/VoiceKeys/releases) ·
+[Signaler un bug](https://github.com/tombury59/VoiceKeys/issues) ·
+[Proposer une idée](https://github.com/tombury59/VoiceKeys/issues)
+
+</div>
+
+---
+
+## ✨ En bref
+
+- 🗣️ **Un mot = une touche.** Tu parles, le keybind se déclenche comme une vraie frappe.
+- 🔌 **100 % hors ligne.** Reconnaissance vocale **française** embarquée (Vosk) : **rien** ne sort de ton PC, ça marche même sans internet.
+- ⚔️ **Pensé pour Wynncraft.** Sorts, monture, menus… et compatible avec **n'importe quel** keybind (vanilla ou moddé, Wynntils inclus).
+- 🖥️ **Menu en jeu** (touche **V**) : choix du micro, mots, réglages — rien à éditer à la main.
+- 🎤 **Discret et sûr.** Mode *push-to-talk* (micro actif seulement quand tu tiens une touche) + indicateur à l'écran.
+- 🎛️ **Rapide ET fiable.** Détection de fin de mot + filtre anti-bruit pour déclencher vite, sans fausses détections.
+
+## 🧐 C'est quoi ?
+
+VoiceKeys est un mod **client** pour Minecraft (Fabric 1.21.11). Il écoute ton micro
+sur un thread dédié, reconnaît les mots que **tu** as configurés, et simule l'appui de
+la touche associée — exactement comme si tu la pressais au clavier.
+
+Toute la reconnaissance se fait **localement** grâce à [Vosk](https://alphacephei.com/vosk/)
+et un petit modèle français (~40 Mo). Aucun serveur, aucun cloud, aucun enregistrement :
+l'audio est traité à la volée puis jeté. Rien n'est installé côté serveur Minecraft.
+
+## 🎮 Utilisation
+
+1. En jeu, appuie sur **V** pour ouvrir le menu.
+2. Choisis ton **micro** et vérifie que l'écoute est sur **ON**.
+3. Dis un mot configuré — par défaut :
+
+| Tu dis… | Il se passe… |
 | --- | --- |
-| Minecraft | 1.21.11 |
-| Loader | Fabric Loader 0.20.1 + Fabric API 0.140.2 |
-| Java | 21 |
-| Build | Gradle 9.8.2 (wrapper) + Fabric Loom 1.14 |
-| Mappings | Mojang officielles (noms `KeyMapping`, `getName()`, `clickCount`…) |
-| Reconnaissance | Vosk `com.alphacephei:vosk:0.3.45`, embarqué jar-in-jar (+ JNA) |
-| Modèle | `vosk-model-small-fr`, **non embarqué**, à placer dans `config/voicekeys/model/` |
-| Capture audio | `javax.sound.sampled` (`TargetDataLine`), PCM 16 kHz mono 16 bits |
+| « un » / « deux » / « trois » / « quatre » | Sorts 1 à 4 (Wynntils) |
+| « cheval » | Monture |
 
-## Compiler
+Un petit **🎤 en bas à gauche** indique quand le micro écoute (vert) ou non (gris).
 
-Un JDK 21 est requis. Depuis le dossier du projet :
+<!-- Astuce : ajoute une capture d'écran du menu ici, ex. ![Menu](docs/menu.png) -->
 
-```bash
-./gradlew build
-```
+## 📦 Installation
 
-Le mod est produit dans `build/libs/voicekeys-1.0.0.jar` (≈ 27 Mo, Vosk + JNA inclus).
-Copiez-le dans le dossier `mods/` de votre instance.
+> Pré-requis : **Minecraft 1.21.11** avec **Fabric Loader** + **Fabric API**
+> (et **Wynntils** si tu veux les sorts). Côté client uniquement.
 
-> Note : le wrapper Gradle utilise le JDK indiqué par `JAVA_HOME`. Sous Windows,
-> pointez-le vers votre JDK 21, par ex. `set JAVA_HOME=C:\Users\...\.jdks\temurin-21.0.10`.
-
-## Installer le modèle vocal
-
-1. Téléchargez **vosk-model-small-fr** (≈ 40 Mo) sur <https://alphacephei.com/vosk/models>.
-2. Décompressez-le.
-3. Placez le dossier du modèle ici (dans votre instance `.minecraft`) :
-
+1. **Télécharge** `voicekeys-x.x.x.jar` depuis la [page Releases](https://github.com/tombury59/VoiceKeys/releases)
+   et mets-le dans ton dossier **`mods/`**.
+2. **Installe le modèle vocal** (non inclus, trop lourd) : télécharge
+   **`vosk-model-small-fr`** sur [alphacephei.com/vosk/models](https://alphacephei.com/vosk/models),
+   décompresse-le, et place le dossier ici :
    ```
-   .minecraft/config/voicekeys/model/vosk-model-small-fr/
-       am/  conf/  graph/  ivector/  ...
+   .minecraft/config/voicekeys/model/vosk-model-small-fr/   (am/ conf/ graph/ …)
    ```
+3. Lance le jeu. Le fichier `config/voicekeys.json` se crée tout seul au premier démarrage.
 
-Le chemin est réglable via `modelPath` dans `config/voicekeys.json`.
+Modèle manquant ou micro débranché ? Pas de crash : un **message clair** s'affiche
+dans le chat, tu corriges, tu relances.
 
-## Configuration — `config/voicekeys.json`
+## ⚙️ Configuration
 
-Créé automatiquement au premier lancement avec cet exemple :
+Tout est éditable dans le menu **V**, mais tu peux aussi modifier `config/voicekeys.json` :
 
 ```json
 {
-  "modelPath": "config/voicekeys/model/vosk-model-small-fr",
+  "micName": "",
   "enabledOnStart": true,
   "minConfidence": 0.7,
   "cooldownMs": 300,
+  "triggerOnPartial": true,
+  "partialConfirmations": 2,
+  "pushToTalk": false,
   "bindings": [
-    { "word": "un",     "keybind": "Cast 1st Spell" },
-    { "word": "deux",   "keybind": "Cast 2nd Spell" },
-    { "word": "trois",  "keybind": "Cast 3rd Spell" },
-    { "word": "quatre", "keybind": "Cast 4th Spell" },
-    { "word": "cheval", "keybind": "Mount Horse" },
-    { "word": "inventaire", "keybind": "key.inventory" }
+    { "word": "un", "keybind": "wynntils.keybind.castFirstSpell" }
   ]
 }
 ```
 
-| Champ | Rôle |
-| --- | --- |
-| `modelPath` | Dossier du modèle Vosk (relatif au dossier de jeu, ou absolu) |
-| `enabledOnStart` | Écoute active dès le lancement |
-| `minConfidence` | Seuil de confiance (0 à 1) sous lequel le mot est ignoré |
-| `cooldownMs` | Délai minimum entre deux déclenchements du **même** mot |
-| `bindings[].word` | Mot à prononcer, en minuscules, présent dans le vocabulaire du modèle |
-| `bindings[].keybind` | Nom interne du `KeyMapping` (ce qui suit `key_` dans `options.txt`) |
+Le nom du keybind est celui écrit dans `options.txt` après `key_`
+(ex. `key_wynntils.keybind.castFirstSpell` → `wynntils.keybind.castFirstSpell`,
+`key_key.inventory` → `key.inventory`).
 
-**Trouver le bon nom de keybind :** ouvrez `.minecraft/options.txt`. Chaque ligne
-`key_XXX:...` donne le nom `XXX`. Pour Wynntils : `key_Cast 1st Spell` → `Cast 1st Spell`.
-Pour le vanilla : `key_key.inventory` → `key.inventory`.
+## 💬 Retours & contribution
 
-## Utilisation
+Une idée, un bug, un mot mal reconnu ? **Ouvre une
+[issue](https://github.com/tombury59/VoiceKeys/issues)** — toute remarque est la bienvenue.
 
-- Touche **V** par défaut : active / coupe l'écoute (message dans l'action bar
-  « Écoute : ON / OFF »). Rebindable dans Options → Commandes → catégorie VoiceKeys.
-- Dites un mot configuré : le keybind associé est déclenché pour un tick.
-- Rien ne se déclenche si aucun joueur n'est en jeu ou si un écran/menu est ouvert
-  (chat, inventaire…).
+## 🛠️ Compiler soi-même
 
-## Comment ça marche
-
-1. **Config** chargée au démarrage (`ConfigManager`), créée si absente.
-2. **Modèle Vosk** chargé dans `VoiceRecognizer` ; en cas d'absence/erreur, message
-   clair dans le log + chat, **sans crash**.
-3. **Écoute micro** sur un thread dédié (`VoiceKeys-Audio`), recognizer en **mode
-   grammaire** limité aux mots de la config + `[unk]` (moins de fausses détections).
-4. **Mot reconnu** (confiance ≥ `minConfidence`) → ajouté à une file thread-safe.
-   Aucun appel Minecraft depuis le thread audio.
-5. **Déclenchement** : à chaque tick client, `KeybindController` lit la file, retrouve
-   le `KeyMapping` (cache construit au 1er tick) et simule un appui d'un tick —
-   `setDown(true)` + incrément de `clickCount` via mixin accessor, relâché au tick
-   suivant, pour que les mods lisant `isDown()` comme `consumeClick()` réagissent.
-6. **Touche on/off** : coupe/réactive l'écoute.
-
-## Lancer un client de dev
+Besoin de **Java 21**.
 
 ```bash
-./gradlew runClient
+git clone https://github.com/tombury59/VoiceKeys.git
+cd VoiceKeys
+./gradlew build
 ```
 
-(Nécessite le modèle dans `run/config/voicekeys/model/` et un micro.)
+Le jar est généré dans `build/libs/`. Pour tester en jeu : `./gradlew runClient`
+(place d'abord le modèle dans `run/config/voicekeys/model/`).
 
-## Dépannage
+## 📚 Pour aller plus loin
 
-- *Modèle vocal introuvable* → vérifiez `modelPath` et que le dossier contient bien
-  `am/`, `conf/`, `graph/`…
-- *Micro indisponible ou occupé* → fermez les autres applis qui utilisent le micro.
-- Un mot qui ne se déclenche jamais → il est peut-être absent du vocabulaire du modèle
-  FR, ou la confiance est trop basse (`minConfidence`). Regardez le log (`VoiceKeys`).
-- Un keybind introuvable → le nom dans `keybind` ne correspond à aucune touche ;
-  comparez avec `options.txt` (un avertissement est écrit dans le log au 1er tick).
+- [Vosk](https://alphacephei.com/vosk/) — le moteur de reconnaissance vocale hors ligne
+- [Fabric](https://fabricmc.net/) — le mod loader
+- [Wynntils](https://wynntils.com/) — le mod Wynncraft dont viennent les keybinds de sorts
 
-## Limites (hors MVP)
+## 📄 Licence
 
-Pas d'écran de config en jeu, pas de choix du micro en jeu, pas de HUD permanent,
-pas de déclenchement sur résultat partiel, pas de rechargement à chaud, FR uniquement.
+Distribué sous licence [MIT](LICENSE).
