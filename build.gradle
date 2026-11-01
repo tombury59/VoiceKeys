@@ -1,0 +1,71 @@
+plugins {
+    id 'fabric-loom' version '1.14-SNAPSHOT'
+    id 'java'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    mavenCentral()
+    // Vosk is published on Maven Central under com.alphacephei
+}
+
+loom {
+    runs {
+        client {
+            client()
+            ideConfigGenerated(true)
+            runDir("run")
+        }
+    }
+}
+
+dependencies {
+    // Minecraft + Fabric
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    // Official Mojang mappings — matches KeyMapping / getName() / clickCount names used in the spec.
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    // Vosk speech recognition, bundled into the mod jar (jar-in-jar).
+    // 'include' nests the jar so no extra install is needed on the client.
+    // JNA is a transitive dependency of Vosk and must be nested explicitly,
+    // because 'include' does not pull transitive dependencies.
+    implementation(include("com.alphacephei:vosk:${project.vosk_version}"))
+    implementation(include("net.java.dev.jna:jna:${project.jna_version}"))
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "minecraft_version", project.minecraft_version
+    inputs.property "loader_version", project.loader_version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version,
+               "minecraft_version": project.minecraft_version,
+               "loader_version": project.loader_version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+
+    withSourcesJar()
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archives_base_name}" }
+    }
+}

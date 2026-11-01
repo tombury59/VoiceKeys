@@ -1,0 +1,6 @@
+{
+  "key.category.voicekeys.main": "VoiceKeys",
+  "key.voicekeys.toggle": "Toggle voice listening",
+  "key.voicekeys.config": "Open configuration",
+  "key.voicekeys.ptt": "Push-to-talk (hold to speak)"
+}

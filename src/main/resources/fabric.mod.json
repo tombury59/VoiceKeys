@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "voicekeys",
+  "version": "${version}",
+  "name": "VoiceKeys",
+  "description": "Écoute le micro et déclenche un keybind quand un mot configuré est reconnu. Reconnaissance vocale hors ligne (Vosk), côté client uniquement.",
+  "authors": [
+    "tom Bury"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.voicekeys.VoiceKeysMod"
+    ]
+  },
+  "mixins": [
+    "voicekeys.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18",
+    "minecraft": "~${minecraft_version}",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
